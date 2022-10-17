@@ -65,10 +65,7 @@
         </dl>
         <hr class="w-full border-t border-gray-600 my-4" />
       </template>
-      <graph-ticker 
-        v-if="selectedTicker"
-        :selectedTickerName="selectedTicker.name"
-        />
+     
 
       <section v-if="selectedTicker" class="relative">
         <h3 class="text-lg leading-6 font-medium text-gray-900 my-8">
@@ -111,6 +108,13 @@
           </svg>
         </button>
       </section>
+
+      <graph-select-ticker 
+        v-if="selectedTicker"
+        :selectedTickerName="selectedTicker.name"
+        :normalizedGraph="normalizedGraph"
+        @selectedTickerNull="selectedTicker = null"
+      />
     </div>
   </div>
 </template>
@@ -120,14 +124,15 @@
 
 import { subscribeToTicker, unsubscribeFromTicker } from "./api";
 import AddTicker from './components/AddTicker.vue';
-import GraphTicker from './components/GraphTicker.vue';
+import GraphSelectTicker from './components/GraphSelectTicker.vue';
 
 export default {
   name: "App",
 
   components: {
     AddTicker,
-    GraphTicker,
+    GraphSelectTicker,
+
   },
 
   data() {
@@ -158,13 +163,7 @@ export default {
       }
     });
 
-    // if (windowData.filter) {
-    //   this.filter = windowData.filter;
-    // }
-
-    // if (windowData.page) {
-    //   this.page = windowData.page;
-    // }
+ 
 
     const tickersData = localStorage.getItem("cryptonomicon-list");
 
@@ -181,11 +180,11 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('resize', this.calculateMaxGraphElements);
+  window.addEventListener('resize', this.calculateMaxGraphElements); 
   },
 
   beforeUnmount() {
-    window.removeEventListener('resize', this.calculateMaxGraphElements);
+  window.removeEventListener('resize', this.calculateMaxGraphElements); 
   },
 
   computed: {
@@ -241,7 +240,7 @@ export default {
         return;
       }
       this.maxGraphELements = this.$refs.graph.clientWidth / 38;
-    },
+    }, 
 
     updateTicker(tickerName, price) {
       this.tickers

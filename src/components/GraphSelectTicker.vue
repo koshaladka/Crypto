@@ -1,7 +1,7 @@
 <template>
     <section class="relative">
         <h3 class="text-lg leading-6 font-medium text-gray-900 my-8">
-          {{ selectedTicker.name }} - USD
+          {{ selectedTickerName }} - USD
         </h3>
         <div class="flex items-end border-gray-600 border-b border-l h-64"
           ref="graph">
@@ -13,7 +13,7 @@
           ></div>
         </div>
         <button
-          @click="selectedTicker = null"
+          @click="selectedTickerNull"
           type="button"
           class="absolute top-0 right-0"
         >
@@ -43,5 +43,28 @@
 </template>
 
 <script>
+
+export default {
+    props: {
+        selectedTickerName: {
+            type: String,
+            required: false,
+            default: '',
+        },
+
+        normalizedGraph: {
+            type: Array,
+            required: false,
+        }
+    },
+
+    methods: {
+        selectedTickerNull() {
+            this.$emit('selectedTickerNull')
+        }
+    }
+}
+
+
 
 </script>
