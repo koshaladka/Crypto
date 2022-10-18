@@ -67,7 +67,7 @@
       </template>
      
 
-     <!--  <section v-if="selectedTicker" class="relative">
+     <section v-if="selectedTicker" class="relative">
         <h3 class="text-lg leading-6 font-medium text-gray-900 my-8">
           {{ selectedTicker.name }} - USD
         </h3>
@@ -108,7 +108,7 @@
           </svg>
         </button>
       </section>
- -->
+ 
       <graph-select-ticker 
         v-if="selectedTicker"
         :selectedTickerName="selectedTicker.name"
